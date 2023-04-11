@@ -56,7 +56,7 @@ def connect_db():
     return con
 def add_user(f_name,l_name,tg_id,phone,connectition):
     sql = f'''INSERT INTO users (first_name, last_name, tg_id, phone_number)
-    VALUES ({f_name},{l_name},{tg_id},{phone})'''
+    VALUES ("{f_name}","{l_name}","{tg_id}","{phone}")'''
     try:
 
         curs = connectition.cursor()

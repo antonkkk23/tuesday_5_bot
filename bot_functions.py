@@ -35,7 +35,12 @@ def button_message(message):
 
 @bot.message_handler(content_types=['contact', 'location'])
 def save_user(message):
-    if message.contact is not None:  # если номер телефона передали
+    if message.contact is not None:# если номер телефона передали
+        connect = connect_db()
+        cont = message.contact
+        u = add_user(cont.first_name, cont.last_name, cont.user_id, cont.phone_number, connect)
+        if u is not None:
+            bot.send_message(message.chat_id,'Вы уже отправили мне контакты')
         with open('users.txt', 'a', encoding='utf-8') as file:  # записываем инфу о пользователе в файл
             file.write(f'{message.contact}\n')
     elif message.location is not None:  # если локацию передали
